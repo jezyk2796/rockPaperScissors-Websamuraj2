@@ -10,6 +10,7 @@ const game = {
     computerChoice: '',
 }
 
+const whoWin = document.querySelector(`span[data-summary="who-win"]`);
 const pictures = [...document.querySelectorAll('.select img')];
 
 // pictures selection
@@ -36,12 +37,35 @@ const chompareChoice = (player, ai) => {
     }
 };
 
+// showing results
+const showResult = (player, ai, result) => {
+    document.querySelector(`span[data-summary="your-choice"]`).textContent = player;
+    document.querySelector(`span[data-summary="ai-choice"]`).textContent = ai;
+    document.querySelector('.numbers span').textContent = ++summary.numbers;
+
+    if (result === 'draw') {
+        whoWin.textContent = 'Remis :|';
+        whoWin.style.color = 'orange';
+        document.querySelector('.draws span').textContent = ++summary.draws;
+    } else if (result === 'win') {
+        whoWin.textContent = 'Wygrałeś !!! :)';
+        whoWin.style.color = 'green';
+        document.querySelector('.wins span').textContent = ++summary.wins;
+    } else if (result === 'loss') {
+        whoWin.textContent = 'Przegrałeś :(';
+        whoWin.style.color = 'red';
+        document.querySelector('.losses span').textContent = ++summary.losses;
+    }
+};
+
 // implementation
 const startGame = () => {
     if (game.playerChoice == '') return alert('wybierz dłoń!!!!');
 
     game.computerChoice = computerPicture();
     const result = chompareChoice(game.playerChoice, game.computerChoice);
+
+    showResult(game.playerChoice, game.computerChoice, result);
 };
 
 pictures.forEach(picture => picture.addEventListener('click', selectPicture));
