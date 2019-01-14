@@ -58,6 +58,12 @@ const showResult = (player, ai, result) => {
     }
 };
 
+const resetChoices = () => {
+    document.querySelector(`img[data-option="${game.playerChoice}"]`).style = '';
+    game.playerChoice = '';
+    game.computerChoice = '';
+};
+
 // implementation
 const startGame = () => {
     if (game.playerChoice == '') return alert('wybierz dłoń!!!!');
@@ -66,6 +72,7 @@ const startGame = () => {
     const result = chompareChoice(game.playerChoice, game.computerChoice);
 
     showResult(game.playerChoice, game.computerChoice, result);
+    resetChoices();
 };
 
 pictures.forEach(picture => picture.addEventListener('click', selectPicture));
