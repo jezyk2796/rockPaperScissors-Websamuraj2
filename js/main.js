@@ -25,10 +25,23 @@ const computerPicture = () => {
     return pictures[Math.floor(Math.random() * 3)].dataset.option;
 };
 
+// comparing choices
+const chompareChoice = (player, ai) => {
+    if (player === ai) {
+        return 'draw';
+    } else if ((player === 'nożyczki' && ai === 'papier') || (player === 'papier' && ai === 'kamień') || (player === 'kamień' && ai === 'nożyczki')) {
+        return 'win';
+    } else {
+        return 'loss';
+    }
+};
+
+// implementation
 const startGame = () => {
     if (game.playerChoice == '') return alert('wybierz dłoń!!!!');
 
     game.computerChoice = computerPicture();
+    const result = chompareChoice(game.playerChoice, game.computerChoice);
 };
 
 pictures.forEach(picture => picture.addEventListener('click', selectPicture));
